@@ -16,24 +16,6 @@ function Signup() {
   const handlePassword = (event) => setPassword(event.target.value);
   const handleName = (event) => setName(event.target.value);
   const handleLastName = (event) => setLastName(event.target.value);
-  const handleFileUpload = async (event) => {
-    //configuring how to send the file
-    const uploadData = new FormData();
-    uploadData.append('imgUrl', event.target.files[0]);
-
-    try {
-      setLoading(true);
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/upload`,
-        uploadData,
-      );
-      setLoading(false);
-      console.log(response.data.fileUrl);
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-    }
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //isto faz com que a página não carregue como faz por predefinição
