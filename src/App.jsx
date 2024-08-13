@@ -17,7 +17,7 @@ function App() {
           element={<Homepage />}
         />
         <Route
-          path='/blush'
+          path='/product/:productId'
           element={<ProductBlush />}
         />
         <Route

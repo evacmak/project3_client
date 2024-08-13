@@ -1,15 +1,18 @@
 import { Rating } from '@material-tailwind/react';
-import { Select, Option } from '@material-tailwind/react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { Select, Option } from '@material-tailwind/react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../context/auth.context';
+//import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const AddReview = () => {
+const AddReview = ({ getSingleProduct, productId }) => {
   const [skinType, setSkinType] = useState('');
   const [skinConcern, setSkinConcern] = useState(''); // Fixed typo from 'skinConcerm'
-  const [review, setReview] = useState('');
-  const [userRating, setUserRating] = useState(''); // Renamed to avoid conflict with imported 'rating'
-  const navigate = useNavigate();
+  const [comment, setComment] = useState('');
+  const [userRating, setUserRating] = useState(0); // Renamed to avoid conflict with imported 'rating'
+  //const navigate = useNavigate();
+
+  const { user } = useContext(AuthContext);
 
   const handleSkinType = (event) => {
     setSkinType(event.target.value);
@@ -19,8 +22,8 @@ const AddReview = () => {
     setSkinConcern(event.target.value);
   };
 
-  const handleReview = (event) => {
-    setReview(event.target.value);
+  const handleComment = (event) => {
+    setComment(event.target.value);
   };
 
   const handleRating = (value) => {
@@ -31,19 +34,20 @@ const AddReview = () => {
     event.preventDefault();
 
     try {
-      const project = {
+      const product = {
         skinType,
         skinConcern,
-        review,
+        comment,
         rating: userRating,
       };
       await axios.post(
-        'https://project-management-api-4641927fee65.herokuapp.com/projects',
-        project,
+        `${import.meta.env.VITE_API_URL}/api/review/${user._id}/${productId}`,
+        product,
       );
 
       // Redirect the user to the list of projects (webpage)
-      navigate('/blush');
+      // navigate('/blush');
+      getSingleProduct(productId);
     } catch (error) {
       console.log('Error creating the project', error);
     }
@@ -88,41 +92,50 @@ const AddReview = () => {
   );
 
   const SkinType = () => (
-    <div className='w-full flex'>
-      <Select
+    <div className='w-72 h-10'>
+      <select
+        className=' bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
         label='Skin Type'
         onChange={handleSkinType}>
-        <Option value='A'>A</Option>
-        <Option value='B'>B</Option>
-        <Option value='C'>C</Option>
-      </Select>
+        <option value='A'>A</option>
+        <option value='B'>B</option>
+        <option value='C'>C</option>
+      </select>
     </div>
   );
 
   const SkinConcern = () => (
-    <div className='w-full flex'>
-      <Select
+    <div className='w-72 h-10'>
+      <select
+        className=' bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
         label='Skin Concern'
         onChange={handleConcern}>
-        <Option value='A'>A</Option>
-        <Option value='B'>B</Option>
-        <Option value='C'>C</Option>
-      </Select>
+        <option value='A'>A</option>
+        <option value='B'>B</option>
+        <option value='C'>C</option>
+      </select>
     </div>
   );
 
   return (
     <form
-      className='px-8 '
+      className='px-8 h-screen'
       onSubmit={handleSubmit}>
-      <div className='py-3'>
-        <SkinType />
-        <SkinConcern />
+      <div className='py-3 h-full'>
+        <div>
+          {' '}
+          <p>Choose your skin type</p>
+          <SkinType />
+        </div>
+        <div>
+          <p>Choose your skin concern</p>
+          <SkinConcern />
+        </div>
         <p>Write your review here</p>
         <textarea
           className='w-full h-40 rounded-md border-2 border-gray-500'
-          value={review}
-          onChange={handleReview}
+          value={comment}
+          onChange={handleComment}
         />
         <CustomRatingIcon />
         <button type='submit'>Add Review</button>
