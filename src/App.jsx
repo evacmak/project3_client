@@ -6,10 +6,12 @@ import Login from './pages/Auth/Login';
 import { Routes, Route } from 'react-router-dom';
 import Anon from './components/Anon';
 import ProductBlush from './pages/ProductBlush';
+import Logo from './components/Logo';
 
 function App() {
   return (
     <>
+      <Logo />
       <Navbar />
       <Routes>
         <Route
