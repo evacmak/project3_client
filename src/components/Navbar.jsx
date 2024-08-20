@@ -1,96 +1,99 @@
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '../context/auth.context'; // Import AuthContext
+import { AuthContext } from '../context/auth.context';
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext); // Destructure user and logout from AuthContext
+  const { user, logout } = useContext(AuthContext);
 
   return (
-    <nav className='bg-[#A41F13] h-14 rounded-lg mt-4 mx-4'>
-      <ul className='flex justify-between items-center h-full'>
-        {/* Left side: Shop and About */}
-        <div className='flex space-x-4 ml-4'>
-          <NavLink
-            className={({ isActive }) => (isActive ? 'selected' : '')}
-            to='/products'
-            style={{
-              fontFamily: 'Bebas, sans-serif',
-              color: 'white',
-              fontSize: '25px',
-              fontWeight: '600',
-            }}>
-            Shop
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => (isActive ? 'selected' : '')}
-            to='/about'
-            style={{
-              fontFamily: 'Bebas, sans-serif',
-              fontSize: '25px',
-              fontWeight: '600',
-              color: 'white',
-            }}>
-            About
-          </NavLink>
-        </div>
+    <nav className='bg-[rgba(224,219,216,0.5)] h-14 rounded-lg fixed top-0 left-0 right-0 mx-4 z-50 border-b'>
+      <ul className='flex justify-center items-center space-x-8 h-full'>
+        {/* Home, Shop, About */}
+        <NavLink
+          className={({ isActive }) => (isActive ? 'selected' : '')}
+          to='/'
+          style={{
+            fontFamily: 'Bebas, sans-serif',
+            color: '#292F36',
+            fontSize: '25px',
+            fontWeight: '600',
+          }}>
+          Home
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? 'selected' : '')}
+          to='/products'
+          style={{
+            fontFamily: 'Bebas, sans-serif',
+            color: '#292F36',
+            fontSize: '25px',
+            fontWeight: '600',
+          }}>
+          Shop
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? 'selected' : '')}
+          to='/about'
+          style={{
+            fontFamily: 'Bebas, sans-serif',
+            fontSize: '25px',
+            fontWeight: '600',
+            color: '#292F36',
+          }}>
+          About
+        </NavLink>
 
-        {/* Right side: Signup, Login, Logout, Cart */}
-        <div className='flex space-x-4 mr-4'>
-          {user ? ( // Check if user is logged in
+        {/* Conditional rendering based on user authentication */}
+        {user ? (
+          <NavLink
+            className={({ isActive }) => (isActive ? 'selected' : '')}
+            to='/'
+            onClick={logout}
+            style={{
+              fontFamily: 'Bebas, sans-serif',
+              fontSize: '25px',
+              fontWeight: '500',
+              color: '#292F36',
+            }}>
+            Logout
+          </NavLink>
+        ) : (
+          <>
             <NavLink
               className={({ isActive }) => (isActive ? 'selected' : '')}
-              to='/'
-              onClick={logout} // Call the logout function on click
+              to='/signup'
               style={{
                 fontFamily: 'Bebas, sans-serif',
                 fontSize: '25px',
                 fontWeight: '500',
-                padding: '5px 13px',
-                color: 'white',
+                color: '#292F36',
               }}>
-              Logout
+              Signup
             </NavLink>
-          ) : (
-            <>
-              <NavLink
-                className={({ isActive }) => (isActive ? 'selected' : '')}
-                to='/signup'
-                style={{
-                  fontFamily: 'Bebas, sans-serif',
-                  fontSize: '25px',
-                  fontWeight: '500',
-                  padding: '5px 13px',
-                  color: 'white',
-                }}>
-                Signup
-              </NavLink>
-              <NavLink
-                className={({ isActive }) => (isActive ? 'selected' : '')}
-                to='/login'
-                style={{
-                  fontFamily: 'Bebas, sans-serif',
-                  fontSize: '25px',
-                  fontWeight: '500',
-                  padding: '5px 13px',
-                  color: 'white',
-                }}>
-                Login
-              </NavLink>
-              <NavLink
-                className={({ isActive }) => (isActive ? 'selected' : '')}
-                to='/cart'
-                style={{
-                  fontFamily: 'Bebas, sans-serif',
-                  fontSize: '25px',
-                  fontWeight: '500',
-                  padding: '5px 13px',
-                  color: 'white',
-                }}>
-                Cart
-              </NavLink>
-            </>
-          )}
-        </div>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'selected' : '')}
+              to='/login'
+              style={{
+                fontFamily: 'Bebas, sans-serif',
+                fontSize: '25px',
+                fontWeight: '500',
+                color: '#292F36',
+              }}>
+              Login
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'selected' : '')}
+              to='/cart'
+              style={{
+                fontFamily: 'Bebas, sans-serif',
+                fontSize: '25px',
+                fontWeight: '500',
+                color: '#292F36',
+              }}>
+              Cart
+            </NavLink>
+          </>
+        )}
       </ul>
     </nav>
   );
