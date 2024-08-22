@@ -11,7 +11,7 @@ const Logo = () => {
           src={logo}
           alt='Clube Logo'
           className='nav-logo'
-          style={{ width: '200px', height: 'auto' }}
+          style={{ width: '150px', height: 'auto' }}
         />
       </NavLink>
     </div>

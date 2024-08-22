@@ -5,6 +5,7 @@ import Comments from '../components/Comments';
 
 const ProductBlush = () => {
   const [product, setProduct] = useState(null);
+  const [showReviews, setShowReviews] = useState(false);
   const { productId } = useParams();
 
   const getSingleProduct = async (id) => {
@@ -13,6 +14,7 @@ const ProductBlush = () => {
         `${import.meta.env.VITE_API_URL}/api/product/${id}`,
       );
       setProduct(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log('error fetching the product', error);
     }
@@ -43,11 +45,16 @@ const ProductBlush = () => {
           ) : (
             <p>No reviews yet. Be the first to review this product!</p>
           )}
-
-          <Comments
-            productId={productId}
-            getSingleProduct={getSingleProduct}
-          />
+          <button onClick={() => setShowReviews(!showReviews)}>
+            {' '}
+            Add Review
+          </button>
+          {showReviews && (
+            <Comments
+              productId={productId}
+              getSingleProduct={getSingleProduct}
+            />
+          )}
         </>
       )}
     </div>
