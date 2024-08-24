@@ -26,11 +26,11 @@
 }
 
 /* CollectionPage.css */
-.collection-page {
+/* .collection-page {
   max-width: 1200px;
   margin: 40px auto;
   padding: 20px;
-}
+} */
 
 .header {
   text-align: center;
@@ -59,7 +59,7 @@
 
 .product-card img {
   width: 100%;
-  height: 150px;
+  height: 250px;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
 }
@@ -77,16 +77,17 @@
 }
 
 .product-card button {
-  background-color: #333;
-  color: #fff;
-  border: none;
+  /* background-color: #333; */
+  color: #292f36;
+  border: solid;
+  border-color: #ddd;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
 }
 
 .product-card button:hover {
-  background-color: #444;
+  background-color: #ddd;
 }
 
 .kanit-thin {
