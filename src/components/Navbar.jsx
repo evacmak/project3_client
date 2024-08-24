@@ -53,18 +53,31 @@ const Navbar = () => {
       {/* Right section: Signup, Login, Cart, Logout */}
       <div className='flex space-x-8'>
         {user ? (
-          <NavLink
-            className={({ isActive }) => (isActive ? 'selected' : '')}
-            to='/'
-            onClick={logout}
-            style={{
-              fontFamily: 'kanit, semibold',
-              fontSize: '25px',
-              fontWeight: '500',
-              color: '#292F36',
-            }}>
-            Logout
-          </NavLink>
+          <>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'selected' : '')}
+              to='/purchase'
+              style={{
+                fontFamily: 'kanit, semibold',
+                fontSize: '25px',
+                fontWeight: '500',
+                color: '#292F36',
+              }}>
+              Cart
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? 'selected' : '')}
+              to='/'
+              onClick={logout}
+              style={{
+                fontFamily: 'kanit, semibold',
+                fontSize: '25px',
+                fontWeight: '500',
+                color: '#292F36',
+              }}>
+              Logout
+            </NavLink>
+          </>
         ) : (
           <>
             <NavLink
@@ -88,17 +101,6 @@ const Navbar = () => {
                 color: '#292F36',
               }}>
               Login
-            </NavLink>
-            <NavLink
-              className={({ isActive }) => (isActive ? 'selected' : '')}
-              to='/purchase'
-              style={{
-                fontFamily: 'kanit, semibold',
-                fontSize: '25px',
-                fontWeight: '500',
-                color: '#292F36',
-              }}>
-              Cart
             </NavLink>
           </>
         )}

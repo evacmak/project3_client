@@ -4,14 +4,21 @@ import { useState, useEffect, useContext } from 'react';
 import Comments from '../components/Comments';
 import EditReview from '../components/Edit Comments';
 import { AuthContext } from '../context/auth.context';
+import { CartContext } from '../context/cart.context';
 
 const ProductBlush = () => {
   const [product, setProduct] = useState(null);
   const [showReviews, setShowReviews] = useState(false);
   const [editingReviewId, setEditingReviewId] = useState(null);
+  const [cartQuantity, setCartQuantity] = useState(1);
 
   const { productId } = useParams();
   const { user } = useContext(AuthContext);
+  const { handleAddToCart, handleRemoveProduct } = useContext(CartContext);
+
+  const handleCartQuantity = (e) => {
+    setCartQuantity(e.target.value);
+  };
 
   const getSingleProduct = async (id) => {
     try {
@@ -36,6 +43,20 @@ const ProductBlush = () => {
         <>
           <h1>{product.title}</h1>
           <p>{product.description}</p>
+          <div>
+            <input
+              type='number'
+              name='cartQuantity'
+              id='cartQuantity'
+              min={1}
+              value={cartQuantity}
+              onChange={handleCartQuantity}
+            />
+            <button onClick={() => handleAddToCart(product, cartQuantity)}>
+              Add to cart
+            </button>
+          </div>
+
           <h2>Reviews</h2>
           {product.reviews && product.reviews.length > 0 ? (
             product.reviews.map((review) => (
@@ -46,6 +67,7 @@ const ProductBlush = () => {
                     review={review}
                     getSingleProduct={getSingleProduct}
                     setEditingReviewId={setEditingReviewId}
+                    productId={productId}
                   />
                 ) : (
                   <div
@@ -57,7 +79,7 @@ const ProductBlush = () => {
                   </div>
                 )}
 
-                {review.author === user._id && (
+                {review.author === user?._id && (
                   <button onClick={() => setEditingReviewId(review._id)}>
                     Edit Review
                   </button>

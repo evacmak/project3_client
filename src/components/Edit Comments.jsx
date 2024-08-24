@@ -30,6 +30,9 @@ const EditReview = ({
       };
 
       //put edits something that is already there
+      console.log('review', review._id);
+      console.log('user', user._id);
+
       await axios.put(
         `${import.meta.env.VITE_API_URL}/api/review/${user._id}/${review._id}`,
         product,
