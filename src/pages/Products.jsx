@@ -1,19 +1,25 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 const CollectionPage = () => {
-  const products = [
-    {
-      id: 1,
-      image: 'product-image-1.jpg',
-      title: 'Product 1',
-      price: 50.0,
-    },
-    {
-      id: 2,
-      image: 'product-image-2.jpg',
-      title: 'Product 2',
-      price: 30.0,
-    },
-    // Add more products to the array
-  ];
+  const [products, setProducts] = useState([]);
+
+  const getAllProducts = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/product`,
+      );
+      setProducts(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log('error fetching the product', error);
+    }
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
   return (
     <div className='collection-page'>
@@ -24,14 +30,19 @@ const CollectionPage = () => {
       <div className='product-grid'>
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className='product-card'>
-            <img
-              src={product.image}
-              alt={product.title}
-            />
-            <h2>{product.title}</h2>
-            <p>${product.price.toFixed(2)}</p>
+            <Link to={`/product/${product._id}`}>
+              <div>
+                <img
+                  src={product.imageUrl}
+                  alt={product.title}
+                />
+
+                <h2>{product.title}</h2>
+                {/*    <p>${product.price.toFixed(2)}</p> */}
+              </div>
+            </Link>
             <button>Add to Cart</button>
           </div>
         ))}

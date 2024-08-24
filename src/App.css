@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   background-color: #fffaf3;
   max-height: 100%;
   min-height: none;
@@ -9,7 +8,6 @@
   display: flex;
   justify-content: space-between;
   background: #fffaf3;
-  padding: 20px 40px;
 }
 
 .Navbar li,
@@ -25,10 +23,6 @@
 .custom-icon {
   width: 16px;
   height: 16px;
-}
-
-body {
-  padding-top: 3.5rem; /* Adjust based on the height of your navbar */
 }
 
 /* CollectionPage.css */
@@ -201,4 +195,8 @@ body {
   font-family: 'Kanit', sans-serif;
   font-weight: 900;
   font-style: italic;
+}
+
+.body {
+  font-family: 'Kanit', sans-serif;
 }

@@ -40,7 +40,7 @@ function Login() {
   };
 
   return (
-    <div className='LoginPage'>
+    <div className='LoginPage mt-24'>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor='email'>Email</label>

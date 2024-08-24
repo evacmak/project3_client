@@ -37,7 +37,7 @@ function Signup() {
   };
 
   return (
-    <div className='SignupPage'>
+    <div className='SignupPage mt-24'>
       <h2>Signup</h2>
 
       <form onSubmit={handleSubmit}>

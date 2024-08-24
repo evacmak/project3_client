@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Comments from '../components/Comments';
+import EditReview from '../components/Edit Comments';
+import { AuthContext } from '../context/auth.context';
 
 const ProductBlush = () => {
   const [product, setProduct] = useState(null);
   const [showReviews, setShowReviews] = useState(false);
+  const [editingReviewId, setEditingReviewId] = useState(null);
+
   const { productId } = useParams();
+  const { user } = useContext(AuthContext);
 
   const getSingleProduct = async (id) => {
     try {
@@ -34,26 +39,47 @@ const ProductBlush = () => {
           <h2>Reviews</h2>
           {product.reviews && product.reviews.length > 0 ? (
             product.reviews.map((review) => (
-              <div
-                key={review._id}
-                style={{ marginBottom: '20px' }}>
-                <h4>{review.author}</h4>
-                <p>Rating: {review.rating} / 5</p>
-                <p>{review.comment}</p>
-              </div>
+              <>
+                {editingReviewId === review._id ? (
+                  <EditReview
+                    key={review._id}
+                    review={review}
+                    getSingleProduct={getSingleProduct}
+                    setEditingReviewId={setEditingReviewId}
+                  />
+                ) : (
+                  <div
+                    key={review._id}
+                    style={{ marginBottom: '20px' }}>
+                    <h4>{review.author}</h4>
+                    <p>Rating: {review.rating} / 5</p>
+                    <p>{review.comment}</p>
+                  </div>
+                )}
+
+                {review.author === user._id && (
+                  <button onClick={() => setEditingReviewId(review._id)}>
+                    Edit Review
+                  </button>
+                )}
+              </>
             ))
           ) : (
             <p>No reviews yet. Be the first to review this product!</p>
           )}
-          <button onClick={() => setShowReviews(!showReviews)}>
-            {' '}
-            Add Review
-          </button>
-          {showReviews && (
-            <Comments
-              productId={productId}
-              getSingleProduct={getSingleProduct}
-            />
+          {user && (
+            <>
+              <button onClick={() => setShowReviews(!showReviews)}>
+                Add Review
+              </button>
+              {showReviews && (
+                <Comments
+                  productId={productId}
+                  getSingleProduct={getSingleProduct}
+                  setShowReviews={setShowReviews}
+                />
+              )}
+            </>
           )}
         </>
       )}

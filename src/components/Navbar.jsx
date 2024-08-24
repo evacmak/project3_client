@@ -7,7 +7,7 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <nav className='bg-[rgba(224,219,216,0.5)] h-16 rounded-lg fixed top-5 left-0 right-0 mx-4 z-50 border-b flex items-center justify-between px-4'>
+    <nav className='bg-[rgba(224,219,216,0.5)] h-16 rounded-lg fixed top-5 left-0 right-0 mx-4 z-50 flex items-center justify-between px-4'>
       {/* Left section: Home, Shop, About */}
       <div className='flex space-x-8'>
         <NavLink

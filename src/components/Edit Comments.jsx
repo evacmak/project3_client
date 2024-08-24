@@ -1,12 +1,19 @@
+import { Rating } from '@material-tailwind/react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useContext, AuthContext } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth.context';
 
-const EditReview = ({ getSingleProduct, productId }) => {
-  const [skinType, setSkinType] = useState('');
-  const [skinConcern, setSkinConcern] = useState(''); // Fixed typo from 'skinConcerm'
-  const [comment, setComment] = useState('');
-  const [userRating, setUserRating] = useState(0); // Renamed to avoid conflict with imported 'rating'
+const EditReview = ({
+  getSingleProduct,
+  productId,
+  setEditingReviewId,
+  review,
+}) => {
+  const [skinType, setSkinType] = useState(review.skinType);
+  const [skinConcern, setSkinConcern] = useState(review.skinConcern); // Fixed typo from 'skinConcerm'
+  const [comment, setComment] = useState(review.comment);
+  const [userRating, setUserRating] = useState(review.rating); // Renamed to avoid conflict with imported 'rating'
   //const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
@@ -21,14 +28,16 @@ const EditReview = ({ getSingleProduct, productId }) => {
         comment,
         rating: userRating,
       };
+
       //put edits something that is already there
       await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/review/${user._id}/${productId}`,
+        `${import.meta.env.VITE_API_URL}/api/review/${user._id}/${review._id}`,
         product,
       );
 
       //once the project is created redirect the user to the list of projects (webpage)
       getSingleProduct(productId);
+      setEditingReviewId(null);
     } catch (error) {
       console.log('Error editing the project', error);
     }
@@ -49,25 +58,6 @@ const EditReview = ({ getSingleProduct, productId }) => {
   const handleRating = (value) => {
     setUserRating(value);
   };
-
-  const getSingleProject = async (id) => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/review/${user._id}/${productId}`,
-      );
-
-      setSkinType(response.data.skinType);
-      setSkinConcern(response.data.skinConcern);
-      setComment(response.date.comment);
-      setUserRating(response.data.userRating);
-    } catch (error) {
-      console.log('error fetching the review', error);
-    }
-  };
-
-  useEffect(() => {
-    getSingleProject(productId);
-  }, [productId]);
 
   // Define the rest of the components inside AddReview
   const RatedIcon = () => (
@@ -103,7 +93,8 @@ const EditReview = ({ getSingleProduct, productId }) => {
       ratedColor='red'
       ratedIcon={<RatedIcon />}
       unratedIcon={<UnratedIcon />}
-      onChange={handleRating}
+      value={userRating}
+      onChange={(value) => handleRating(value)}
     />
   );
 
@@ -112,7 +103,8 @@ const EditReview = ({ getSingleProduct, productId }) => {
       <select
         className=' bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
         label='Skin Type'
-        onChange={handleSkinType}>
+        onChange={handleSkinType}
+        value={skinType}>
         <option value='A'>A</option>
         <option value='B'>B</option>
         <option value='C'>C</option>
@@ -125,7 +117,8 @@ const EditReview = ({ getSingleProduct, productId }) => {
       <select
         className=' bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
         label='Skin Concern'
-        onChange={handleConcern}>
+        onChange={handleConcern}
+        value={skinConcern}>
         <option value='A'>A</option>
         <option value='B'>B</option>
         <option value='C'>C</option>

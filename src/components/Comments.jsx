@@ -5,9 +5,9 @@ import { AuthContext } from '../context/auth.context';
 //import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const AddReview = ({ getSingleProduct, productId }) => {
-  const [skinType, setSkinType] = useState('');
-  const [skinConcern, setSkinConcern] = useState(''); // Fixed typo from 'skinConcerm'
+const AddReview = ({ getSingleProduct, productId, setShowReviews }) => {
+  const [skinType, setSkinType] = useState('A');
+  const [skinConcern, setSkinConcern] = useState('A'); // Fixed typo from 'skinConcerm'
   const [comment, setComment] = useState('');
   const [userRating, setUserRating] = useState(0); // Renamed to avoid conflict with imported 'rating'
   //const navigate = useNavigate();
@@ -48,6 +48,8 @@ const AddReview = ({ getSingleProduct, productId }) => {
       // Redirect the user to the list of projects (webpage)
       // navigate('/blush');
       getSingleProduct(productId);
+      //Hide reviews field
+      setShowReviews(false);
     } catch (error) {
       console.log('Error creating the project', error);
     }
@@ -87,7 +89,8 @@ const AddReview = ({ getSingleProduct, productId }) => {
       ratedColor='red'
       ratedIcon={<RatedIcon />}
       unratedIcon={<UnratedIcon />}
-      onChange={handleRating}
+      value={userRating}
+      onChange={(value) => handleRating(value)}
     />
   );
 
@@ -96,7 +99,8 @@ const AddReview = ({ getSingleProduct, productId }) => {
       <select
         className=' bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
         label='Skin Type'
-        onChange={handleSkinType}>
+        onChange={handleSkinType}
+        value={skinType}>
         <option value='A'>A</option>
         <option value='B'>B</option>
         <option value='C'>C</option>
@@ -109,7 +113,8 @@ const AddReview = ({ getSingleProduct, productId }) => {
       <select
         className=' bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
         label='Skin Concern'
-        onChange={handleConcern}>
+        onChange={handleConcern}
+        value={skinConcern}>
         <option value='A'>A</option>
         <option value='B'>B</option>
         <option value='C'>C</option>
