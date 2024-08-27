@@ -59,11 +59,22 @@ const CollectionPage = () => {
                   src={product.imageUrl}
                   alt={product.title}
                 />
-                <h2 className='text-xl font-medium mt-4'>{product.title}</h2>
-                {/*    <p>${product.price.toFixed(2)}</p> */}
+                <h2
+                  className='text-xl font-medium mt-4 text-center'
+                  style={{ fontFamily: 'kanit, extralight' }}>
+                  {product.title}
+                </h2>
+                <h3
+                  className='mt-4 text-center text-gray-600'
+                  style={{ fontFamily: 'kanit, extralight' }}>
+                  {product.subtitle}
+                </h3>
+                {/* <p>${product.price.toFixed(2)}</p> */}
               </div>
+              <button className='mt-4 w-full py-2 rounded-full'>
+                See product
+              </button>
             </Link>
-            <button className='mt-4 w-full py-2 rounded-lg'>Add to Cart</button>
           </div>
         ))}
       </div>
