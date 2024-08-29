@@ -63,7 +63,7 @@ function Login() {
           <p
             className='text-center text-4xl font-medium mb-8'
             style={{ fontFamily: 'kanit, extrabold' }}>
-            Signup
+            Login
           </p>
 
           <form
