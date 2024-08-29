@@ -14,10 +14,11 @@ const ProductBlush = () => {
 
   const { productId } = useParams();
   const { user } = useContext(AuthContext);
-  const { handleAddToCart, handleRemoveProduct } = useContext(CartContext);
+  const { handleAddToCart } = useContext(CartContext);
 
   const handleCartQuantity = (e) => {
     setCartQuantity(e.target.value);
+    console.log(cartQuantity);
   };
 
   const getSingleProduct = async (id) => {

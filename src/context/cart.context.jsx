@@ -9,7 +9,8 @@ function CartProviderWrapper(props) {
   const [cartTotal, setCartTotal] = useState(0);
 
   const handleAddToCart = (product, quantity) => {
-    const index = cart.findIndex((item) => item.id === product.id);
+    console.log('hello');
+    const index = cart.findIndex((item) => item._id === product._id);
     //Add new product
     if (index === -1) {
       setCart([...cart, { product, quantity }]);
