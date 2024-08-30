@@ -15,9 +15,10 @@ const Navbar = () => {
           to='/'
           style={{
             fontFamily: 'kanit, semibold',
-            color: '#292F36',
+            color: '#FFFFFF',
             fontSize: '25px',
             fontWeight: '500',
+            textShadow: '2px 2px 4px gray',
           }}>
           Home
         </NavLink>
@@ -26,22 +27,12 @@ const Navbar = () => {
           to='/product'
           style={{
             fontFamily: 'kanit, semibold',
-            color: '#292F36',
+            color: '#FFFFFF',
             fontSize: '25px',
             fontWeight: '500',
+            textShadow: '2px 2px 4px gray',
           }}>
           Shop
-        </NavLink>
-        <NavLink
-          className={({ isActive }) => (isActive ? 'selected' : '')}
-          to='/about'
-          style={{
-            fontFamily: 'kanit, semibold',
-            fontSize: '25px',
-            fontWeight: '500',
-            color: '#292F36',
-          }}>
-          About
         </NavLink>
       </div>
 
@@ -61,7 +52,8 @@ const Navbar = () => {
                 fontFamily: 'kanit, semibold',
                 fontSize: '25px',
                 fontWeight: '500',
-                color: '#292F36',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 4px gray',
               }}>
               Cart
             </NavLink>
@@ -73,7 +65,8 @@ const Navbar = () => {
                 fontFamily: 'kanit, semibold',
                 fontSize: '25px',
                 fontWeight: '500',
-                color: '#292F36',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 4px gray',
               }}>
               Logout
             </NavLink>
@@ -87,7 +80,8 @@ const Navbar = () => {
                 fontFamily: 'kanit, semibold',
                 fontSize: '25px',
                 fontWeight: '500',
-                color: '#292F36',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 4px gray',
               }}>
               Signup
             </NavLink>
@@ -98,7 +92,8 @@ const Navbar = () => {
                 fontFamily: 'kanit, semibold',
                 fontSize: '25px',
                 fontWeight: '500',
-                color: '#292F36',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 4px gray',
               }}>
               Login
             </NavLink>

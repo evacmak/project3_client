@@ -59,7 +59,7 @@ const Homepage = () => {
               </p>
               <button
                 onClick={() => navigate('/product')}
-                className='mt-4 w-full py-2 rounded-full border-2 hover:bg-[#ddd]'
+                className='mt-4 w-full py-2 rounded-full border-2 hover:bg-[#ddd] text-gray-700'
                 style={{ fontFamily: 'kanit, regular' }}>
                 Explore our products
               </button>
@@ -73,6 +73,13 @@ const Homepage = () => {
             />
           </div>
         </div>
+      </div>
+      <div className='w-full h-64 overflow-hidden mt-3 px-4 rounded-lg relative mb-8'>
+        <img
+          src='https://www.rhodeskin.com/cdn/shop/files/summer-lip-case-full-bleed_2480x.jpg?v=1718252512'
+          alt='Signup Banner'
+          className='w-full h-full object-cover rounded-lg'
+        />
       </div>
     </div>
   );
